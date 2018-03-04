@@ -1,0 +1,58 @@
+body {
+    background-image: url(../images/subtle_zebra_3d/subtle_zebra_3d_@2X.png);
+    background-repeat: repeat;
+}
+
+h1 {
+    font-family: 'Fascinate';
+    font-size: 45pt;
+    color: black;
+    text-align: center;
+    background-color: #D3171E;
+    border: solid 5px #23A990;
+    border-radius: 10px;
+}
+
+h2 {
+    font-family: 'Fascinate';
+    font-size: 35pt;
+    text-align: center;
+    color: black;
+    background-color: #D3171E;
+    border: solid 5px #23A990;
+    border-radius: 10px;
+}
+
+#questionmark {
+    display: block;
+    padding-top: 25px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width:200px;
+    max-height:200px;
+    width: auto;
+    height: auto;
+}
+
+#gameArea {
+    background-color: blue;
+    height: 500px;
+}
+
+#beginButton {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -100px;
+    width: 300px;
+    background-color: #D3171E;
+    border: solid 5px #23A990;
+    border-radius: 10px;
+}
+
+h3 {
+    font-family: 'Monofett', cursive;
+    font-size: 30pt;
+    color: black;
+}
