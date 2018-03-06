@@ -19,8 +19,8 @@
 <body>
 
     <div class="container-fluid">
-        
-        <div class="row">        
+
+        <div class="row">
             <div class="col-md-2">
                 <img src="assets/images/questionmark.gif" id="questionmark">
             </div>
@@ -35,32 +35,55 @@
 
         <div class="row">
             <div class="col-md-3" id="sidebarLeft">
-                
-                   <div id="hour-glass">
-                    <div id="glass"></div>
-                    <div id="sand-stream"></div>
-                    <div id="top-sand"></div>
-                    <div id="bottom-sand"></div>
-            </div></div>
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div id="hour-glass">
+                            <div id="glass"></div>
+                            <div id="sand-stream"></div>
+                            <div id="top-sand"></div>
+                            <div id="bottom-sand"></div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="intervalTimer" class="timer answerHead">Time Remaining</div>
+                        <br>
+                        <h1 id="countdown">20</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="unansweredHead" class="answerHead">Unanswered Questions</div>
+                        <br>
+                        <h1 id="unansweredCount">0</h1>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6" id="gameArea">
-                <button id ="beginButton"><h3>Let's find out!</h3></button>
+                <button id="beginButton">
+                    <h3>Let's find out!</h3>
+                </button>
 
             </div>
             <div class="col-md-3" id="sidebarRight">
                 <div class="row">
                     <div class="col-md-12">
-                            <div id="rightAnswerHead" class="answerHead">Right Answers</div>
-                            <br>
+                        <div id="rightAnswerHead" class="answerHead">Right Answers</div>
+                        <br>
                         <h1 id="rightAnswerCount">0</h1>
                     </div>
                 </div>
                 <div class="row">
-                        <div class="col-md-12">
-                                <div id="rightAnswerHead" class="answerHead">Wrong Answers</div>
-                            <br>
-                            <h1 id="wrongAnswerCount">0</h1>
-                        </div>
+                    <div class="col-md-12">
+                        <div id="rightAnswerHead" class="answerHead">Wrong Answers</div>
+                        <br>
+                        <h1 id="wrongAnswerCount">0</h1>
                     </div>
+                </div>
+
 
             </div>
         </div>
@@ -69,7 +92,7 @@
             <div class="col-md-12" id="footer"></div>
         </div>
 
-    
+
     </div>
     <script src="assets/javascript/app.js"></script>
 </body>

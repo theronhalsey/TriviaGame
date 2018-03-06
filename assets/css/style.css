@@ -80,7 +80,7 @@ h4 {
 
 
 
-#hour-glass {
+/* #hour-glass {
     position: relative;
     width: 60px;
     height: 120px;
@@ -129,7 +129,7 @@ h4 {
     right: -2px;
     margin-left: auto; margin-right: auto;
     position: absolute; bottom: 0;
-    animation: drain 10s ease-in;
+    animation: drain 20s ease-in;
   }  
   
   #bottom-sand {
@@ -140,7 +140,7 @@ h4 {
     border-right: solid transparent 48px;
     border-radius: 30px;
     right: -48px;
-    animation: fill 10s ease-out;
+    animation: fill 20s ease-out;
   }
   
   #sand-stream {
@@ -149,7 +149,7 @@ h4 {
     left: 59px; top: 120px;
     border-left: dotted #422608 3px;
     opacity: 0;
-    animation: shift 0.1s linear infinite, disappear 10s linear 1;
+    animation: shift 0.1s linear infinite, disappear 20s linear 1;
   }
   
   @keyframes disappear {
@@ -209,4 +209,4 @@ h4 {
       border-radius: 30px;
       right: -2px;
     }
-  }
+  } */

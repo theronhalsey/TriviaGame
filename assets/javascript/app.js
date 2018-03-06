@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-    // make questionButtons of questions
+// questions block
     var questions = [
 
         question1 = {
@@ -52,30 +52,63 @@ $(document).ready(function () {
             }
         },
 
+        question5 = {
+            questionText: "How did my computer die?",
+            answers: {
+                rightAnswer: "Magic smoke got out.",
+                wrongAnswers: {
+                    wrong1: "Cat pushed it off the desk.",
+                    wrong2: "Dropped a heavier bag on my computer bag",
+                    wrong3: "It never really worked to begin with.",
+                }
+            }
+        },
+
     ]
 
-    // get random question
+// rnadomize questions
     function randomize() {
         questions.sort(function (a, b) { return 0.5 - Math.random() });
     }
     randomize();
 
+// global variables
     var question = questions[0];
     var askedQuestion
     var questionButtons = [];
     var index = 0;
     var rightAnswerCount = 0;
     var wrongAnswerCount = 0;
+    var unansweredCount = 0;
+    var questionsAsked = 0;
 
+    var intervalTimer = 20;
+    var intervalId;
+
+// global functions
+    //interval
+    function run() {
+        clearInterval(intervalId);
+        intervalId = setInterval(decrement, 1000);
+    };
+
+    function decrement() {
+        intervalTimer--;
+        $("#countdown").html(intervalTimer);
+        if (intervalTimer === 0) {
+            unansweredCount++;
+            stop();
+        };
+    };
+
+    function stop() {
+        clearInterval(intervalId);
+        intervalTimer = 20;
+    };
+
+    //timeout
     
-    /* var rightSounds = [];
-    var wrongSounds = [
-        'assets/sounds/wrong/f-o-o-l.wav',
-        'assets/sounds/wrong/nofootballgame.wav',
-        'assets/sounds/wrong/sense.wav',
-        'assets/sounds/wrong/youcrazy.wav',
-    ]; */
-
+    //question functions
     function makeQuestionButtons() {
         askedQuestion = $("<h4 id='questionText'>").text(question.questionText);
         option1 = $("<button id='option1'>").text(question.answers.rightAnswer).addClass("option correct");
@@ -87,62 +120,57 @@ $(document).ready(function () {
         option4 = $("<button id='option4'>").text(question.answers.wrongAnswers.wrong3).addClass("option incorrect");
         questionButtons[3] = option4;
         questionButtons.sort(function (a, b) { return 0.5 - Math.random() });
-    }
+    };
 
     function nextQuestion() {
         index++;
         question = questions[index];
+        $("#questionText").text(question.questionText)
+        $("#option1").text(question.answers.rightAnswer);
+        $("#option2").text(question.answers.wrongAnswers.wrong1);
+        $("#option3").text(question.answers.wrongAnswers.wrong2);
+        $("#option4").text(question.answers.wrongAnswers.wrong3);
+        makeQuestionButtons();
+        run();
     };
 
+    //game functions
+    function endGame() {
+        if (questionsAsked === questions.length) {
+            $("#gameArea").text("Game Over");
+            alert("Game Over");
+        }
+    };
+
+// begin game
     $("#beginButton").on("click", function () {
         makeQuestionButtons();
         $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
-        console.log(questions);
+        run();
 
+// click right/wrong answers        
         $(".correct").on("click", function () {
+            stop();
             rightAnswerCount++;
             $("#rightAnswerCount").text(rightAnswerCount);
             nextQuestion();
             makeQuestionButtons();
-            $("#questionText").text(question.questionText)
-            $("#option1").text(question.answers.rightAnswer);
-            $("#option2").text(question.answers.wrongAnswers.wrong1);
-            $("#option3").text(question.answers.wrongAnswers.wrong2);
-            $("#option4").text(question.answers.wrongAnswers.wrong3);
-            /* $(".option").each(function(){
-                var divs = $(this).find('div');
-                for(var i = 0; i < divs.length; i++) $(divs[i]).remove();
-                for(var i = 0; i < divs.length; i++) $(divs[i]).appendTo(this);
-            }); */
 
             console.log("this click is working");
-
-
+            console.log(questions);
+            console.log(question);
+            console.log(questionButtons);
         });
 
         $(".incorrect").on("click", function () {
-           
-            /* wrongSounds[Math.floor(Math.random() * wrongSounds.length)];
-            var playWrongSound = new Audio(wrongSounds);
-            audio.play(wrongSounds); */
-        
+            stop();
             wrongAnswerCount++;
             $("#wrongAnswerCount").text(wrongAnswerCount);
             nextQuestion();
             makeQuestionButtons();
-            $("#questionText").text(question.questionText)
-            $("#option1").text(question.answers.rightAnswer);
-            $("#option2").text(question.answers.wrongAnswers.wrong1);
-            $("#option3").text(question.answers.wrongAnswers.wrong2);
-            $("#option4").text(question.answers.wrongAnswers.wrong3);
             console.log("this click is also working");
         });
 
     });
-
-
-
-
-
 
 });
