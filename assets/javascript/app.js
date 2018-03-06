@@ -82,34 +82,35 @@ $(document).ready(function () {
     var unansweredCount = 0;
     var questionsAsked = 0;
 
-    var intervalTimer = 20;
+    var timer = 10;
     var intervalId;
 
 // global functions
-    //interval
+    //timer
     function run() {
         clearInterval(intervalId);
         intervalId = setInterval(decrement, 1000);
     };
 
     function decrement() {
-        intervalTimer--;
-        $("#countdown").html(intervalTimer);
-        if (intervalTimer === 0) {
-            unansweredCount++;
+        timer--;
+        $("#countdown").html(timer);
+        if (timer === 0) {
             stop();
+            unansweredCount++;
+            $("#unansweredCount").text(unansweredCount);
+            nextQuestion();
         };
     };
 
     function stop() {
         clearInterval(intervalId);
-        intervalTimer = 20;
+        timer = 10;
     };
-
-    //timeout
     
     //question functions
     function makeQuestionButtons() {
+        questionsAsked++;
         askedQuestion = $("<h4 id='questionText'>").text(question.questionText);
         option1 = $("<button id='option1'>").text(question.answers.rightAnswer).addClass("option correct");
         questionButtons[0] = option1;
@@ -123,6 +124,7 @@ $(document).ready(function () {
     };
 
     function nextQuestion() {
+        if (questionsAsked < questions.length) {
         index++;
         question = questions[index];
         $("#questionText").text(question.questionText)
@@ -132,21 +134,23 @@ $(document).ready(function () {
         $("#option4").text(question.answers.wrongAnswers.wrong3);
         makeQuestionButtons();
         run();
+        } else{
+            endGame();
+        }
     };
 
     //game functions
     function endGame() {
-        if (questionsAsked === questions.length) {
             $("#gameArea").text("Game Over");
             alert("Game Over");
-        }
-    };
+        };
 
 // begin game
     $("#beginButton").on("click", function () {
         makeQuestionButtons();
         $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
         run();
+        console.log(questionsAsked);
 
 // click right/wrong answers        
         $(".correct").on("click", function () {
@@ -154,12 +158,7 @@ $(document).ready(function () {
             rightAnswerCount++;
             $("#rightAnswerCount").text(rightAnswerCount);
             nextQuestion();
-            makeQuestionButtons();
-
-            console.log("this click is working");
-            console.log(questions);
-            console.log(question);
-            console.log(questionButtons);
+            console.log(questionsAsked);
         });
 
         $(".incorrect").on("click", function () {
@@ -167,8 +166,7 @@ $(document).ready(function () {
             wrongAnswerCount++;
             $("#wrongAnswerCount").text(wrongAnswerCount);
             nextQuestion();
-            makeQuestionButtons();
-            console.log("this click is also working");
+            console.log(questionsAsked);
         });
 
     });

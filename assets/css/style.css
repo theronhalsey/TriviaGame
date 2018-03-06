@@ -35,7 +35,7 @@ h2 {
 }
 
 #gameArea {
-    background-color: blue;
+    background-color: skyblue;
     height: 500px;
 }
 
@@ -64,12 +64,17 @@ h4 {
 }
 
 .option {
-    display: inline-block;    
-    width: 300px;
+    display: inline-block;
+    position: relative;
+    max-width: 475px;
     background-color: #D3171E;
     border: solid 5px #23A990;
     border-radius: 10px;
-    font-size: 15pt;
+    padding: 10px;
+    margin: 10px;
+    font-family: 'Fascinate';
+    font-size: 20pt;
+    color: black;
 }
 
 .answerHead {
