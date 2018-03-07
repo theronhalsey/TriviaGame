@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-// questions block
+    // questions block
     var questions = [
 
         question1 = {
@@ -66,13 +66,13 @@ $(document).ready(function () {
 
     ]
 
-// rnadomize questions
+    // rnadomize questions
     function randomize() {
         questions.sort(function (a, b) { return 0.5 - Math.random() });
     }
     randomize();
 
-// global variables
+    // global variables
     var question = questions[0];
     var askedQuestion
     var questionButtons = [];
@@ -85,7 +85,7 @@ $(document).ready(function () {
     var timer = 10;
     var intervalId;
 
-// global functions
+    // global functions
     //timer
     function run() {
         clearInterval(intervalId);
@@ -107,9 +107,10 @@ $(document).ready(function () {
         clearInterval(intervalId);
         timer = 10;
     };
-    
+
     //question functions
     function makeQuestionButtons() {
+        console.log("makeQuestionButtons function called =");
         questionsAsked++;
         askedQuestion = $("<h4 id='questionText'>").text(question.questionText);
         option1 = $("<button id='option1'>").text(question.answers.rightAnswer).addClass("option correct");
@@ -121,38 +122,40 @@ $(document).ready(function () {
         option4 = $("<button id='option4'>").text(question.answers.wrongAnswers.wrong3).addClass("option incorrect");
         questionButtons[3] = option4;
         questionButtons.sort(function (a, b) { return 0.5 - Math.random() });
+        console.log(questionButtons);
+
     };
 
     function nextQuestion() {
         if (questionsAsked < questions.length) {
-        index++;
-        question = questions[index];
-        $("#questionText").text(question.questionText)
-        $("#option1").text(question.answers.rightAnswer);
-        $("#option2").text(question.answers.wrongAnswers.wrong1);
-        $("#option3").text(question.answers.wrongAnswers.wrong2);
-        $("#option4").text(question.answers.wrongAnswers.wrong3);
-        makeQuestionButtons();
-        run();
-        } else{
+            index++;
+            question = questions[index];
+            $("#questionText").text(question.questionText)
+            $("#option1").text(question.answers.rightAnswer);
+            $("#option2").text(question.answers.wrongAnswers.wrong1);
+            $("#option3").text(question.answers.wrongAnswers.wrong2);
+            $("#option4").text(question.answers.wrongAnswers.wrong3);
+            makeQuestionButtons();
+            run();
+        } else {
             endGame();
         }
     };
 
     //game functions
     function endGame() {
-            $("#gameArea").text("Game Over");
-            alert("Game Over");
-        };
+        $("#gameArea").text("Game Over");
+        alert("Game Over");
+    };
 
-// begin game
+    // begin game
     $("#beginButton").on("click", function () {
         makeQuestionButtons();
         $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
         run();
         console.log(questionsAsked);
 
-// click right/wrong answers        
+        // click right/wrong answers        
         $(".correct").on("click", function () {
             stop();
             rightAnswerCount++;
