@@ -123,6 +123,8 @@ $(document).ready(function () {
         questionButtons[3] = option4;
         questionButtons.sort(function (a, b) { return 0.5 - Math.random() });
         console.log(questionButtons);
+        $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
+
 
     };
 
@@ -131,11 +133,11 @@ $(document).ready(function () {
             index++;
             question = questions[index];
             $("#questionText").text(question.questionText)
-            $("#option1").text(question.answers.rightAnswer);
-            $("#option2").text(question.answers.wrongAnswers.wrong1);
-            $("#option3").text(question.answers.wrongAnswers.wrong2);
-            $("#option4").text(question.answers.wrongAnswers.wrong3);
             makeQuestionButtons();
+            $("#option1").replaceWith(questionButtons[0]);
+            $("#option2").replaceWith(questionButtons[1]);
+            $("#option3").replaceWith(questionButtons[2]);
+            $("#option4").replaceWith(questionButtons[3]);
             run();
         } else {
             endGame();
@@ -156,7 +158,7 @@ $(document).ready(function () {
         console.log(questionsAsked);
 
         // click right/wrong answers        
-        $(".correct").on("click", function () {
+        $(document).on("click", ".correct", function () {
             stop();
             rightAnswerCount++;
             $("#rightAnswerCount").text(rightAnswerCount);
@@ -164,7 +166,7 @@ $(document).ready(function () {
             console.log(questionsAsked);
         });
 
-        $(".incorrect").on("click", function () {
+        $(document).on("click", ".incorrect", function () {
             stop();
             wrongAnswerCount++;
             $("#wrongAnswerCount").text(wrongAnswerCount);
