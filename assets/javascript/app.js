@@ -125,16 +125,17 @@ $(document).ready(function () {
         timer--;
         $("#countdown").html(timer);
         if (timer === 0) {
+            makeQuestionButtons();
             stop();
             unansweredCount++;
             $("#unansweredCount").text(unansweredCount);
-            nextQuestion();
+            tooSlow();
         };
     };
 
     function stop() {
         clearInterval(intervalId);
-        timer = 10;
+        timer = 20;
     };
 
     //question functions
@@ -179,7 +180,7 @@ $(document).ready(function () {
         audio.play();
         var windowTimeout = setTimeout(function () {
             nextQuestion();
-        }, 3000);
+        }, 4000);
     };
 
     function badJob() {
@@ -194,7 +195,20 @@ $(document).ready(function () {
         audio.play();
         var windowTimeout = setTimeout(function () {
             nextQuestion();
-        }, 3000);
+        }, 4000);
+    };
+
+    function tooSlow() {
+        $("#questionText").text("Gotta answer quicker than that!");
+        $("#option1").replaceWith("<img id='gifImage' src='assets/images/giphy.gif'>");
+        $("#option2").remove();
+        $("#option3").remove();
+        $("#option4").remove();
+        var audio = new Audio('assets/sounds/jeopardy.mp3');
+        audio.play();
+        var windowTimeout = setTimeout(function () {
+            nextQuestion();
+        }, 4000);
     };
 
     function endGame() {
@@ -212,7 +226,7 @@ $(document).ready(function () {
         wrongAnswerCount = 0;
         unansweredCount = 0;
         questionsAsked = 0;
-        timer = 10;
+        timer = 20;
         intervalId;
         shuffleQuestions();
         makeQuestionButtons();
