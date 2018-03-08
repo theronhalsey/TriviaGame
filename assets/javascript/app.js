@@ -47,7 +47,7 @@ $(document).ready(function () {
                 wrongAnswers: {
                     wrong1: "Maybe like, in the future?",
                     wrong2: "It's already great!",
-                    wrong3: "Do busses count?",
+                    wrong3: "Do buses count?",
                 }
             }
         },
@@ -60,6 +60,42 @@ $(document).ready(function () {
                     wrong1: "Cat pushed it off the desk.",
                     wrong2: "Dropped a heavier bag on my computer bag",
                     wrong3: "It never really worked to begin with.",
+                }
+            }
+        },
+
+        question6 = {
+            questionText: "How many JS libraries is too many libraries?",
+            answers: {
+                rightAnswer: "When # of JS libraries > Linux builds.",
+                wrongAnswers: {
+                    wrong1: "My library will be the final and best.",
+                    wrong2: "Have you tried hammer.js?",
+                    wrong3: "When The Cloud runs out of storage.",
+                }
+            }
+        },
+        
+        question7 = {
+            questionText: "Which cat is best?",
+            answers: {
+                rightAnswer: "My cat.",
+                wrongAnswers: {
+                    wrong1: "Your cat.",
+                    wrong2: "Grumpy Cat?",
+                    wrong3: "Cat Stevens.",
+                }
+            }
+        },
+
+        question8 = {
+            questionText: "Why am I still hungry?",
+            answers: {
+                rightAnswer: "There are still uneaten tacos in this world.",
+                wrongAnswers: {
+                    wrong1: "Didn't eat enough.",
+                    wrong2: "Because food is life.",
+                    wrong3: "Soup is a beverage.",
                 }
             }
         },
