@@ -75,7 +75,7 @@ $(document).ready(function () {
                 }
             }
         },
-        
+
         question7 = {
             questionText: "Which cat is best?",
             answers: {
@@ -117,9 +117,10 @@ $(document).ready(function () {
     var wrongAnswerCount = 0;
     var unansweredCount = 0;
     var questionsAsked = 0;
-
     var timer = 20;
     var intervalId;
+
+    //image and sour arrays
 
     var goodGifs = [
         "assets/images/good/giphy1.gif",
@@ -140,7 +141,7 @@ $(document).ready(function () {
         "assets/sounds/good/greatestIdea.m4a",
         "assets/sounds/good/lovegoodpeople.m4a",
         "assets/sounds/good/mostexciting.m4a",
-    ]
+    ];
 
     var badSounds = [
         "assets/sounds/bad/fool.wav",
@@ -161,10 +162,10 @@ $(document).ready(function () {
         timer--;
         $("#countdown").html(timer);
         if (timer === 0) {
-            makeQuestionButtons();
-            stop();
             questionsAsked++;
             unansweredCount++;
+            makeQuestionButtons();
+            stop();
             $("#unansweredCount").text(unansweredCount);
             tooSlow();
         };
@@ -201,55 +202,47 @@ $(document).ready(function () {
             stop();
             endGame();
             shuffleQuestions();
-        }
+        };
     };
 
     //game functions
-    function goodJob() {
+    function transition() {
         gifIndex = Math.floor(Math.random() * 4);
         soundIndex = Math.floor(Math.random() * 4);
-        $("#questionText").text("That's correct!");
-        $("#option1").replaceWith("<img id='gifImage' src='" + goodGifs[gifIndex] + "'>");
         $("#option2").remove();
         $("#option3").remove();
         $("#option4").remove();
-        var audio = new Audio(goodSounds[soundIndex]);
-        audio.play();
         var windowTimeout = setTimeout(function () {
             nextQuestion();
         }, 4000);
+    };
+
+    function goodJob() {
+        transition();
+        $("#questionText").text("That's correct!");
+        $("#option1").replaceWith("<img id='gifImage' src='" + goodGifs[gifIndex] + "'>");
+        var audio = new Audio(goodSounds[soundIndex]);
+        audio.play();
     };
 
     function badJob() {
-        gifIndex = Math.floor(Math.random() * 4);
-        soundIndex = Math.floor(Math.random() * 4);
+        transition();
         $("#questionText").text("No wai!");
         $("#option1").replaceWith("<img id='gifImage' src='" + badGifs[gifIndex] + "'>");
-        $("#option2").remove();
-        $("#option3").remove();
-        $("#option4").remove();
         var audio = new Audio(badSounds[soundIndex]);
         audio.play();
-        var windowTimeout = setTimeout(function () {
-            nextQuestion();
-        }, 4000);
+
     };
 
     function tooSlow() {
+        transition();
         $("#questionText").text("Gotta answer quicker than that!");
         $("#option1").replaceWith("<img id='gifImage' src='assets/images/giphy.gif'>");
-        $("#option2").remove();
-        $("#option3").remove();
-        $("#option4").remove();
         var audio = new Audio('assets/sounds/jeopardy.mp3');
         audio.play();
-        var windowTimeout = setTimeout(function () {
-            nextQuestion();
-        }, 4000);
     };
 
     function endGame() {
-
         $("#questionText").text("You know " + rightAnswerCount + " things!");
         $("#gifImage").replaceWith("<button id='tryAgain'>Try again?</button>");
     };
@@ -278,6 +271,7 @@ $(document).ready(function () {
         $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
         run();
     });
+
     // click right/wrong answers        
     $(document).on("click", ".correct", function () {
         stop();
