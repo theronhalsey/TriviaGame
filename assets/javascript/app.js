@@ -66,13 +66,21 @@ $(document).ready(function () {
 
     ];
 
+<<<<<<< HEAD
     // randomize questions
     function shuffleQuestions() {
+=======
+    // rnadomize questions
+    function randomize() {
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
         questions.sort(function (a, b) { return 0.5 - Math.random() });
     }
     shuffleQuestions();
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
     // global variables
     var question = questions[0];
     var askedQuestion
@@ -86,6 +94,7 @@ $(document).ready(function () {
     var timer = 20;
     var intervalId;
 
+<<<<<<< HEAD
     var goodGifs = [
         "assets/images/good/giphy1.gif",
         "assets/images/good/giphy2.gif",
@@ -101,6 +110,8 @@ $(document).ready(function () {
     ];
 
     
+=======
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
     // global functions
     //timer
     function run() {
@@ -126,8 +137,13 @@ $(document).ready(function () {
 
     //question functions
     function makeQuestionButtons() {
+<<<<<<< HEAD
         question = questions[index];
         if (questionsAsked < questions.length) {
+=======
+        console.log("makeQuestionButtons function called =");
+        questionsAsked++;
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
         askedQuestion = $("<h4 id='questionText'>").text(question.questionText);
         option1 = $("<button id='option1'>").text(question.answers.rightAnswer).addClass("option correct");
         questionButtons[0] = option1;
@@ -138,16 +154,36 @@ $(document).ready(function () {
         option4 = $("<button id='option4'>").text(question.answers.wrongAnswers.wrong3).addClass("option incorrect");
         questionButtons[3] = option4;
         questionButtons.sort(function (a, b) { return 0.5 - Math.random() });
+<<<<<<< HEAD
         };
+=======
+        console.log(questionButtons);
+        $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
+
+
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
     };
 
     function nextQuestion() {
         if (questionsAsked < questions.length) {
+<<<<<<< HEAD
             $("#gifImage").remove();
             $("#questionText").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
             run();
         } else if (questionsAsked === questions.length) {
             stop();
+=======
+            index++;
+            question = questions[index];
+            $("#questionText").text(question.questionText)
+            makeQuestionButtons();
+            $("#option1").replaceWith(questionButtons[0]);
+            $("#option2").replaceWith(questionButtons[1]);
+            $("#option3").replaceWith(questionButtons[2]);
+            $("#option4").replaceWith(questionButtons[3]);
+            run();
+        } else {
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
             endGame();
             shuffleQuestions();
         }
@@ -181,6 +217,7 @@ $(document).ready(function () {
     };
     
     function endGame() {
+<<<<<<< HEAD
 
         $("#questionText").text("You know " + rightAnswerCount + " things!");
         $("#gifImage").replaceWith("<button id='tryAgain'>Try again?</button>");
@@ -220,6 +257,35 @@ $(document).ready(function () {
         makeQuestionButtons();
         goodJob();
     });
+=======
+        $("#gameArea").text("Game Over");
+        alert("Game Over");
+    };
+
+    // begin game
+    $("#beginButton").on("click", function () {
+        makeQuestionButtons();
+        $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
+        run();
+        console.log(questionsAsked);
+
+        // click right/wrong answers        
+        $(document).on("click", ".correct", function () {
+            stop();
+            rightAnswerCount++;
+            $("#rightAnswerCount").text(rightAnswerCount);
+            nextQuestion();
+            console.log(questionsAsked);
+        });
+
+        $(document).on("click", ".incorrect", function () {
+            stop();
+            wrongAnswerCount++;
+            $("#wrongAnswerCount").text(wrongAnswerCount);
+            nextQuestion();
+            console.log(questionsAsked);
+        });
+>>>>>>> da303ce63ffb4b3767f365394d5ec061649e1249
 
     $(document).on("click", ".incorrect", function () {
         stop();
