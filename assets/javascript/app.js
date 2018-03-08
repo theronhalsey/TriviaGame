@@ -127,6 +127,7 @@ $(document).ready(function () {
         if (timer === 0) {
             makeQuestionButtons();
             stop();
+            questionsAsked++;
             unansweredCount++;
             $("#unansweredCount").text(unansweredCount);
             tooSlow();
