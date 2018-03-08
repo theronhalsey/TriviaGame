@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 
-// questions block
+    // questions block
     var questions = [
 
         question1 = {
@@ -64,15 +64,16 @@ $(document).ready(function () {
             }
         },
 
-    ]
+    ];
 
-// rnadomize questions
-    function randomize() {
+    // randomize questions
+    function shuffleQuestions() {
         questions.sort(function (a, b) { return 0.5 - Math.random() });
     }
-    randomize();
+    shuffleQuestions();
 
-// global variables
+
+    // global variables
     var question = questions[0];
     var askedQuestion
     var questionButtons = [];
@@ -82,10 +83,25 @@ $(document).ready(function () {
     var unansweredCount = 0;
     var questionsAsked = 0;
 
-    var timer = 10;
+    var timer = 20;
     var intervalId;
 
-// global functions
+    var goodGifs = [
+        "assets/images/good/giphy1.gif",
+        "assets/images/good/giphy2.gif",
+        "assets/images/good/giphy3.gif",
+        "assets/images/good/giphy4.gif",
+    ];
+
+    var badGifs = [
+        "assets/images/bad/giphy1.gif",
+        "assets/images/bad/giphy2.gif",
+        "assets/images/bad/giphy3.gif",
+        "assets/images/bad/giphy4.gif",
+    ];
+
+    
+    // global functions
     //timer
     function run() {
         clearInterval(intervalId);
@@ -107,10 +123,11 @@ $(document).ready(function () {
         clearInterval(intervalId);
         timer = 10;
     };
-    
+
     //question functions
     function makeQuestionButtons() {
-        questionsAsked++;
+        question = questions[index];
+        if (questionsAsked < questions.length) {
         askedQuestion = $("<h4 id='questionText'>").text(question.questionText);
         option1 = $("<button id='option1'>").text(question.answers.rightAnswer).addClass("option correct");
         questionButtons[0] = option1;
@@ -121,54 +138,100 @@ $(document).ready(function () {
         option4 = $("<button id='option4'>").text(question.answers.wrongAnswers.wrong3).addClass("option incorrect");
         questionButtons[3] = option4;
         questionButtons.sort(function (a, b) { return 0.5 - Math.random() });
+        };
     };
 
     function nextQuestion() {
         if (questionsAsked < questions.length) {
-        index++;
-        question = questions[index];
-        $("#questionText").text(question.questionText)
-        $("#option1").text(question.answers.rightAnswer);
-        $("#option2").text(question.answers.wrongAnswers.wrong1);
-        $("#option3").text(question.answers.wrongAnswers.wrong2);
-        $("#option4").text(question.answers.wrongAnswers.wrong3);
-        makeQuestionButtons();
-        run();
-        } else{
+            $("#gifImage").remove();
+            $("#questionText").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
+            run();
+        } else if (questionsAsked === questions.length) {
+            stop();
             endGame();
+            shuffleQuestions();
         }
     };
 
     //game functions
-    function endGame() {
-            $("#gameArea").text("Game Over");
-            alert("Game Over");
-        };
+    function goodJob() {
+        gifIndex = Math.floor(Math.random()*4);
+        console.log(gifIndex);
+        $("#questionText").text("That's correct!");
+        $("#option1").replaceWith("<img id='gifImage' src='"+goodGifs[gifIndex]+"'>");
+        $("#option2").remove();
+        $("#option3").remove();
+        $("#option4").remove();
+        var windowTimeout = setTimeout(function(){
+            nextQuestion();
+          }, 3000);
+    };
 
-// begin game
-    $("#beginButton").on("click", function () {
+    function badJob() {
+        gifIndex = Math.floor(Math.random()*4);
+        console.log(gifIndex);
+        $("#questionText").text("No wai!");
+        $("#option1").replaceWith("<img id='gifImage' src='"+badGifs[gifIndex]+"'>");
+        $("#option2").remove();
+        $("#option3").remove();
+        $("#option4").remove();
+        var windowTimeout = setTimeout(function(){
+            nextQuestion();
+          }, 3000);
+    };
+    
+    function endGame() {
+
+        $("#questionText").text("You know " + rightAnswerCount + " things!");
+        $("#gifImage").replaceWith("<button id='tryAgain'>Try again?</button>");
+    };
+
+    function startOver() {
+        question = questions[0];
+        askedQuestion
+        questionButtons = [];
+        index = 0;
+        rightAnswerCount = 0;
+        wrongAnswerCount = 0;
+        unansweredCount = 0;
+        questionsAsked = 0;
+        timer = 10;
+        intervalId;
+        shuffleQuestions();
+        makeQuestionButtons();
+        $("#tryAgain").remove();
+        $("#questionText").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
+        run();;
+    };
+
+    // begin game
+    $(document).on("click", "#beginButton", function () {
         makeQuestionButtons();
         $("#beginButton").replaceWith(askedQuestion, "<br>", questionButtons[0], "<br>", questionButtons[1], "<br>", questionButtons[2], "<br>", questionButtons[3]);
         run();
-        console.log(questionsAsked);
-
-// click right/wrong answers        
-        $(".correct").on("click", function () {
-            stop();
-            rightAnswerCount++;
-            $("#rightAnswerCount").text(rightAnswerCount);
-            nextQuestion();
-            console.log(questionsAsked);
-        });
-
-        $(".incorrect").on("click", function () {
-            stop();
-            wrongAnswerCount++;
-            $("#wrongAnswerCount").text(wrongAnswerCount);
-            nextQuestion();
-            console.log(questionsAsked);
-        });
-
+    });
+    // click right/wrong answers        
+    $(document).on("click", ".correct", function () {
+        stop();
+        index++;
+        questionsAsked++;
+        rightAnswerCount++;
+        $("#rightAnswerCount").text(rightAnswerCount);
+        makeQuestionButtons();
+        goodJob();
     });
 
+    $(document).on("click", ".incorrect", function () {
+        stop();
+        index++;
+        questionsAsked++;
+        wrongAnswerCount++;
+        $("#wrongAnswerCount").text(wrongAnswerCount);
+        makeQuestionButtons();
+        badJob();
+    });
+
+    $(document).on("click", "#tryAgain", function () {
+        startOver();
+    });
 });
