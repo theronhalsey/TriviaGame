@@ -162,11 +162,12 @@ $(document).ready(function () {
         timer--;
         $("#countdown").html(timer);
         if (timer === 0) {
+            index++;
             questionsAsked++;
             unansweredCount++;
-            makeQuestionButtons();
-            stop();
             $("#unansweredCount").text(unansweredCount);
+            makeQuestionButtons();
+            stop();   
             tooSlow();
         };
     };
@@ -272,7 +273,7 @@ $(document).ready(function () {
         run();
     });
 
-    // click right/wrong answers        
+    // game buttons        
     $(document).on("click", ".correct", function () {
         stop();
         index++;
